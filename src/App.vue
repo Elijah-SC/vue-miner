@@ -125,16 +125,13 @@ setInterval(miningService.AutoMine, 3000)
           <div class="col-md-6">
             <p>Click Stats</p>
             <div class="row">
-              <div class="col-12 d-flex justify-content-between align-items-center">
-                <div class="StatBoxes">0</div>
-                <span class="stats-width">Pickaxe</span> <i
-                  class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
-                <div id="total-pickaxe-bonus" class="StatBoxes m-1 text-end">0</div>
-              </div>
-              <div class="text-start col-12 d-flex justify-content-between align-items-center">
-                <div class="StatBoxes">0</div>
-                <span class="stats-width">Drill</span> <i class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
-                <div id="total-drill-bonus" class="StatBoxes m-1 text-end">0</div>
+              <div v-for="upgrade in clickUpgrade" :key="upgrade.name">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                  <div class="StatBoxes">{{ upgrade.qty }}</div>
+                  <span class="stats-width">{{ upgrade.name }}</span> <i
+                    class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
+                  <div class="StatBoxes m-1 text-end">{{ upgrade.qty * upgrade.bonus }}</div>
+                </div>
               </div>
             </div>
 

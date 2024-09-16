@@ -9,6 +9,7 @@ class MiningService {
     const upgrade = AppState.autoUpgrades.find(upgrade => upgrade.name == upgradeName)
 
     if (AppState.totalCheese >= upgrade.price) {
+      upgrade.qty++
       AppState.totalCheese -= upgrade.price
       AppState.autoMinePower += upgrade.bonus
       upgrade.price += (upgrade.price * .2)
@@ -19,6 +20,7 @@ class MiningService {
     // console.log(`found upgrade`, upgrade)
 
     if (AppState.totalCheese >= upgrade.price) {
+      upgrade.qty++
       AppState.totalCheese -= upgrade.price
       AppState.minePower += upgrade.bonus
       upgrade.price += (upgrade.price * .2)
