@@ -1,17 +1,25 @@
 <script setup>
 import { computed } from "vue";
 import { AppState } from './AppState.js';
+import { miningService } from "./services/MiningService.js";
 
-const totalCheese = computed(()=> AppState.totalCheese)
+const totalCheese = computed(() => AppState.totalCheese)
+const minePower = computed(() => AppState.minePower)
 
-const MinePower = computed(()=> AppState.minePower)
+const clickUpgrade = computed(() => AppState.clickUpgrades)
 
-function MineCheese() {
-  AppState.totalCheese += AppState.minePower
+const autoUpgrade = computed(() => AppState.autoUpgrades)
+
+function mineCheese() {
+  miningService.mineCheese()
 }
 
-function BuyClickUpgrade(upgradeName){
+function buyClickUpgrade(upgradeName) {
+  miningService.buyClickUpgrade(upgradeName)
+}
 
+function buyAutoUpgrade(upgradeName) {
+  miningService.buyAutoUpgrade(upgradeName)
 }
 </script>
 
@@ -20,7 +28,7 @@ function BuyClickUpgrade(upgradeName){
   <body class="container-fluid bg-dark text-light">
     <h1 class="text-center">Vue Miner</h1>
     <div class="d-flex justify-content-around">
-      <img @click="MineCheese" role="button"
+      <img @click="mineCheese" role="button"
         src="https://purepng.com/public/uploads/large/purepng.com-moonmoonastronomical-bodyfifth-largest-natural-satellitenatural-satellitemoon-light-1411527066942eq0mo.png"
         alt="Moon" class="img-fluid moon">
     </div>
@@ -52,34 +60,24 @@ function BuyClickUpgrade(upgradeName){
           <div class="col-6">
             <p>Click Upgrades</p>
 
-            <sub-section class="row justify-content-between">
+            <div v-for="upgrade in clickUpgrade" :key="upgrade.name">
+              <sub-section class="row justify-content-between">
 
-              <div class="col-2">
-                <button class="fw-bold text-light text-start btn btn-info up-btn m-1">
-                  50
-                </button>
+                <div class="col-2">
+                  <button @click="buyClickUpgrade(upgrade.name)"
+                    class="fw-bold text-light text-start btn btn-info up-btn m-1">
+                    {{ upgrade.price }}
+                  </button>
 
-              </div>
-
-              <div class="col-9 text-end">
-                <span> Buy Pickaxe +5</span>
-              </div>
-
-              <div class="col-2">
-
-                <div class="fw-bold text-light text-start btn btn-info up-btn m-1">300
                 </div>
 
-              </div>
+                <div class="col-9 text-end">
+                  <span>+ {{ upgrade.bonus }} {{ upgrade.name }}</span>
+                </div>
 
-              <div class="col-9 text-end">
+              </sub-section>
+            </div>
 
-                <span>Buy Drill + 20</span>
-
-              </div>
-
-
-            </sub-section>
 
           </div>
 
@@ -87,29 +85,25 @@ function BuyClickUpgrade(upgradeName){
           <div class="col-6">
 
             <p>Automatic Upgrades</p>
-            <sub-section class="row justify-content-between">
 
-              <div class="col-2">
-                <div class="fw-bold text-light text-start btn btn-danger up-btn m-1">
-                  1000</div>
+            <div v-for="upgrade in autoUpgrade" :key="upgrade.name">
 
-              </div>
+              <sub-section class="row justify-content-between">
 
-              <div class="col-9 text-end">
-                <span> Buy rover +10/3s</span>
+                <div class="col-2">
+                  <div @click="buyAutoUpgrade(upgrade.name)"
+                    class="fw-bold text-light text-start btn btn-danger up-btn m-1">
+                    {{ upgrade.price }}</div>
 
-              </div>
+                </div>
 
-              <div class="col-2">
-                <div class="fw-bold text-light text-start btn btn-danger up-btn m-1">
-                  50,000</div>
+                <div class="col-9 text-end">
+                  <span> {{ upgrade.name }} +{{ upgrade.bonus }}/3s</span>
 
-              </div>
+                </div>
+              </sub-section>
+            </div>
 
-              <div class="col-9 text-end">
-                <span>Buy Space Station +100/3s</span>
-              </div>
-            </sub-section>
           </div>
         </div>
       </section>
@@ -128,7 +122,8 @@ function BuyClickUpgrade(upgradeName){
             <div class="row">
               <div class="col-12 d-flex justify-content-between align-items-center">
                 <div class="StatBoxes">0</div>
-                <span class="stats-width">Pickaxe</span> <i class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
+                <span class="stats-width">Pickaxe</span> <i
+                  class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
                 <div id="total-pickaxe-bonus" class="StatBoxes m-1 text-end">0</div>
               </div>
               <div class="text-start col-12 d-flex justify-content-between align-items-center">
@@ -137,7 +132,7 @@ function BuyClickUpgrade(upgradeName){
                 <div id="total-drill-bonus" class="StatBoxes m-1 text-end">0</div>
               </div>
             </div>
-              
+
           </div>
           <div class="col-md-6">
             <p>Automatic Stats</p>
@@ -145,17 +140,17 @@ function BuyClickUpgrade(upgradeName){
               <div class="col-12 d-flex justify-content-between align-items-center">
                 <div class="StatBoxes m-1">0</div>
                 <span class="stats-width">Rover</span> <i class="mdi mdi-timer stats-icons"></i>
-                <div  class="StatBoxes text-end">0</div>
+                <div class="StatBoxes text-end">0</div>
 
               </div>
-              
-                <div class="text-start col-12 d-flex justify-content-between align-items-center">
-                  <div class="StatBoxes m-1">0</div>
-                  <span class="stats-width">Space Station</span> <i class="mdi mdi-timer stats-icons"></i>
-                  <div class="StatBoxes m-1 text-end">0</div>
-        
+
+              <div class="text-start col-12 d-flex justify-content-between align-items-center">
+                <div class="StatBoxes m-1">0</div>
+                <span class="stats-width">Space Station</span> <i class="mdi mdi-timer stats-icons"></i>
+                <div class="StatBoxes m-1 text-end">0</div>
+
               </div>
-                
+
             </div>
 
           </div>
@@ -233,7 +228,7 @@ p {
   display: inline-block;
 }
 
-.StatBoxes{
+.StatBoxes {
   display: inline;
   border: 1px solid white;
   border-radius: 3px;

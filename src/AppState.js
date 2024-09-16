@@ -15,13 +15,13 @@ export const AppState = reactive({
 
   /** @type {ClickUpgrade[]} */
   clickUpgrades: [
-    new ClickUpgrade({ name: `pickaxe`, price: 50, bonus: 5 }),
-    new ClickUpgrade({ name: `drill`, price: 200, bonus: 20 })
+    new ClickUpgrade({ name: `pickaxe`, price: 50, bonus: 5, qty: 0 }),
+    new ClickUpgrade({ name: `drill`, price: 200, bonus: 20, qty: 0 })
   ],
   /** @type {AutoUpgrade[]} */
   autoUpgrades: [
-    new AutoUpgrade({ name: `rover`, price: 1000, bonus: 10 }),
-    new AutoUpgrade({ name: `Station`, price: 50000, bonus: 100 })
+    new AutoUpgrade({ name: `rover`, price: 1000, bonus: 10, qty: 0 }),
+    new AutoUpgrade({ name: `Station`, price: 50000, bonus: 100, qty: 0 })
   ]
 
 })
