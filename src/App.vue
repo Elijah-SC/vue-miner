@@ -1,10 +1,17 @@
 <script setup>
+import { computed } from "vue";
 import { AppState } from './AppState.js';
 
-const totalCheese = computed(AppState.totalCheese)
+const totalCheese = computed(()=> AppState.totalCheese)
+
+const MinePower = computed(()=> AppState.minePower)
 
 function MineCheese() {
-  AppState.totalCheese++
+  AppState.totalCheese += AppState.minePower
+}
+
+function BuyClickUpgrade(upgradeName){
+
 }
 </script>
 
@@ -118,29 +125,39 @@ function MineCheese() {
         <div class="row">
           <div class="col-md-6">
             <p>Click Stats</p>
-            <div class="">
-              <button>0</button>
-              <span class="stats-width">Pickaxe</span> <i class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
-              <button id="total-pickaxe-bonus" class="btn btn-outline-light m-1 text-end">0</button>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-between align-items-center">
+                <div class="StatBoxes">0</div>
+                <span class="stats-width">Pickaxe</span> <i class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
+                <div id="total-pickaxe-bonus" class="StatBoxes m-1 text-end">0</div>
+              </div>
+              <div class="text-start col-12 d-flex justify-content-between align-items-center">
+                <div class="StatBoxes">0</div>
+                <span class="stats-width">Drill</span> <i class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
+                <div id="total-drill-bonus" class="StatBoxes m-1 text-end">0</div>
+              </div>
             </div>
-            <div class="text-start">
-              <button>0</button>
-              <span class="stats-width">Drill</span> <i class="mdi mdi-arrow-right-bold-box-outline stats-icons"></i>
-              <button id="total-drill-bonus" class="btn btn-outline-light m-1 text-end">0</button>
-            </div>
+              
           </div>
           <div class="col-md-6">
             <p>Automatic Stats</p>
-            <div class="">
-              <button class="btn btn-outline-light m-1">0</button>
-              <span class="stats-width">Rover</span> <i class="mdi mdi-timer stats-icons"></i>
-              <button id='auto-rover-bonus' class="btn btn-outline-light m-1 text-end">0</button>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-between align-items-center">
+                <div class="StatBoxes m-1">0</div>
+                <span class="stats-width">Rover</span> <i class="mdi mdi-timer stats-icons"></i>
+                <div  class="StatBoxes text-end">0</div>
+
+              </div>
+              
+                <div class="text-start col-12 d-flex justify-content-between align-items-center">
+                  <div class="StatBoxes m-1">0</div>
+                  <span class="stats-width">Space Station</span> <i class="mdi mdi-timer stats-icons"></i>
+                  <div class="StatBoxes m-1 text-end">0</div>
+        
+              </div>
+                
             </div>
-            <div class="text-start">
-              <button class="btn btn-outline-light m-1">0</button>
-              <span class="stats-width">Space Station</span> <i class="mdi mdi-timer stats-icons"></i>
-              <button class="btn btn-outline-light m-1 text-end">0</button>
-            </div>
+
           </div>
         </div>
 
@@ -214,5 +231,13 @@ p {
 .btn {
   max-width: 5em;
   display: inline-block;
+}
+
+.StatBoxes{
+  display: inline;
+  border: 1px solid white;
+  border-radius: 3px;
+  padding: 4px;
+  margin: 10px;
 }
 </style>

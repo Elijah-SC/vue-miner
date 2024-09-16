@@ -1,4 +1,6 @@
 import { reactive } from 'vue'
+import { ClickUpgrade } from "./models/ClickUpgrade.js"
+import { AutoUpgrade } from "./models/AutoUpgrade.js"
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
@@ -7,6 +9,20 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} user info from the database*/
   account: null,
 
-  totalCheese: 0
+  totalCheese: 0,
+  minePower: 1,
+
+
+  /** @type {ClickUpgrade[]} */
+  clickUpgrades: [
+    new ClickUpgrade({ name: `pickaxe`, price: 50, bonus: 5 }),
+    new ClickUpgrade({ name: `drill`, price: 200, bonus: 20 })
+  ],
+  /** @type {AutoUpgrade[]} */
+  autoUpgrades: [
+    new AutoUpgrade({ name: `rover`, price: 1000, bonus: 10 }),
+    new AutoUpgrade({ name: `Station`, price: 50000, bonus: 100 })
+  ]
+
 })
 
