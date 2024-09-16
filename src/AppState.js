@@ -9,8 +9,9 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} user info from the database*/
   account: null,
 
-  totalCheese: 0,
+  totalCheese: 50000,
   minePower: 1,
+  autoMinePower: 0,
 
 
   /** @type {ClickUpgrade[]} */

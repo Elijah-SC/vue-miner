@@ -5,6 +5,7 @@ import { miningService } from "./services/MiningService.js";
 
 const totalCheese = computed(() => AppState.totalCheese)
 const minePower = computed(() => AppState.minePower)
+const autoMinePower = computed(() => AppState.autoMinePower)
 
 const clickUpgrade = computed(() => AppState.clickUpgrades)
 
@@ -21,6 +22,10 @@ function buyClickUpgrade(upgradeName) {
 function buyAutoUpgrade(upgradeName) {
   miningService.buyAutoUpgrade(upgradeName)
 }
+
+setInterval(miningService.AutoMine, 3000)
+
+
 </script>
 
 <template>
@@ -43,10 +48,10 @@ function buyAutoUpgrade(upgradeName) {
             <h3><i class="mdi mdi-cursor-default-click">+<span>{{ minePower }}</span></i></h3>
           </div>
           <div class="col-4 bg-warning p-3 rounded">
-            <h1><i class="mdi mdi-cheese"><span>{{ totalCheese }}</span></i></h1>
+            <h1><i class="mdi mdi-cheese"><span>{{ totalCheese.toFixed(0) }}</span></i></h1>
           </div>
           <div class="col-4 bg-warning-darker p-3 rounded">
-            <h3><i class="mdi mdi-timer">+<span></span></i></h3>
+            <h3><i class="mdi mdi-timer">+<span>{{ autoMinePower }}</span></i></h3>
           </div>
         </div>
       </section>
@@ -66,7 +71,7 @@ function buyAutoUpgrade(upgradeName) {
                 <div class="col-2">
                   <button @click="buyClickUpgrade(upgrade.name)"
                     class="fw-bold text-light text-start btn btn-info up-btn m-1">
-                    {{ upgrade.price }}
+                    {{ upgrade.price.toFixed(0) }}
                   </button>
 
                 </div>
@@ -93,7 +98,7 @@ function buyAutoUpgrade(upgradeName) {
                 <div class="col-2">
                   <div @click="buyAutoUpgrade(upgrade.name)"
                     class="fw-bold text-light text-start btn btn-danger up-btn m-1">
-                    {{ upgrade.price }}</div>
+                    {{ upgrade.price.toFixed(0) }}</div>
 
                 </div>
 
