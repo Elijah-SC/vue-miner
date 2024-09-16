@@ -40,7 +40,7 @@ function buyAutoUpgrade(upgradeName) {
         <div class="row text-light  align-items-end">
 
           <div class="col-4 bg-warning-darker p-3 rounded">
-            <h3><i class="mdi mdi-cursor-default-click">+<span></span></i></h3>
+            <h3><i class="mdi mdi-cursor-default-click">+<span>{{ minePower }}</span></i></h3>
           </div>
           <div class="col-4 bg-warning p-3 rounded">
             <h1><i class="mdi mdi-cheese"><span>{{ totalCheese }}</span></i></h1>
@@ -61,7 +61,7 @@ function buyAutoUpgrade(upgradeName) {
             <p>Click Upgrades</p>
 
             <div v-for="upgrade in clickUpgrade" :key="upgrade.name">
-              <sub-section class="row justify-content-between">
+              <section class="row justify-content-between">
 
                 <div class="col-2">
                   <button @click="buyClickUpgrade(upgrade.name)"
@@ -75,7 +75,7 @@ function buyAutoUpgrade(upgradeName) {
                   <span>+ {{ upgrade.bonus }} {{ upgrade.name }}</span>
                 </div>
 
-              </sub-section>
+              </section>
             </div>
 
 
@@ -88,7 +88,7 @@ function buyAutoUpgrade(upgradeName) {
 
             <div v-for="upgrade in autoUpgrade" :key="upgrade.name">
 
-              <sub-section class="row justify-content-between">
+              <section class="row justify-content-between">
 
                 <div class="col-2">
                   <div @click="buyAutoUpgrade(upgrade.name)"
@@ -101,7 +101,7 @@ function buyAutoUpgrade(upgradeName) {
                   <span> {{ upgrade.name }} +{{ upgrade.bonus }}/3s</span>
 
                 </div>
-              </sub-section>
+              </section>
             </div>
 
           </div>
